@@ -13,7 +13,7 @@ app.use("/static", express.static(__dirname + "/static"));
 app.use("", require("./routes/files"));
 
 app.get("/", (req, res) => {
-	res.render("index", { msg: "" });
+	res.render("index", { msg: "", files: [], host: "" });
 });
 
 const port = process.env.PORT || 5000;
