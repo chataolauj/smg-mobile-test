@@ -1,0 +1,28 @@
+{
+	"name": "smg-mobile-test",
+	"version": "1.0.0",
+	"description": "SMG Mobile Test",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/chataolauj/smg-mobile-test.git"
+	},
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/chataolauj/smg-mobile-test/issues"
+	},
+	"homepage": "https://github.com/chataolauj/smg-mobile-test#readme",
+	"dependencies": {
+		"aws-sdk": "^2.771.0",
+		"dotenv": "^8.2.0",
+		"ejs": "^3.1.5",
+		"express": "^4.17.1",
+		"express-fileupload": "^1.2.0",
+		"mongoose": "^5.10.9"
+	}
+}
