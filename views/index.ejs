@@ -3,12 +3,16 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Creative Shorts</title>
+		<title>Image Shorts</title>
 		<link
 			rel="stylesheet"
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 			crossorigin="anonymous"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+			rel="stylesheet"
 		/>
 		<script
 			src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -29,73 +33,96 @@
 	</head>
 	<body>
 		<div class="container-fluid">
-			<% if (msg) { %>
-			<div
-				class="toast"
-				style="position: absolute; top: 8px; left: 43%; z-index: 1"
-				role="alert"
-				aria-live="assertive"
-				aria-atomic="true"
-				data-autohide="false"
-			>
-				<div class="toast-body alert-success">
-					<%= msg %>
-					<button
-						type="button"
-						class="ml-2 mb-1 close"
-						data-dismiss="toast"
-						aria-label="Close"
-					>
-						<span aria-hidden="true">&times;</span>
-					</button>
+			<div class="d-flex flex-column">
+				<!-- Title -->
+				<div class="row mb-5">
+					<div class="col-md-6 m-auto">
+						<h1 class="text-center display-1">Image Shorts</h1>
+					</div>
 				</div>
-			</div>
-			<% } %>
-			<div class="row">
-				<div class="col-md-6 m-auto">
-					<h1 class="text-center display-1 my-2">Creative Shorts</h1>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-6 m-auto">
-					<form
-						id="upload-form"
-						action="/upload"
-						method="post"
-						enctype="multipart/form-data"
-					>
-						<div class="custom-file">
-							<input
-								type="file"
-								name="uploaded_file"
-								class="custom-file-input"
-								id="file-upload"
-								accept="image/heic, image/heif, image/webp, image/png, image/jpeg, image/svg+xml, image/gif, application/pdf, .ai, .sketch, .fig"
-							/>
-							<label class="custom-file-label" for="file-upload">
-								Choose File
-							</label>
+				<!-- Alert Messages -->
+				<div class="row">
+					<div id="alert-container" class="col-md-6 m-md-auto">
+						<% if (msg) { %>
+						<!-- Toast -->
+						<div
+							class="alert <%= error ? 'alert-danger' : 'alert-success' %> alert-dismissible fade show"
+							role="alert"
+						>
+							<strong><%= msg %></strong>
+							<button
+								type="button"
+								class="close"
+								data-dismiss="alert"
+								aria-label="Close"
+							>
+								<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-					</form>
-					<button id="upload-btn" class="btn btn-primary">
-						Upload
-					</button>
+						<% } %>
+					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 m-auto">
-					<div class="card-deck">
+				<!-- File Upload -->
+				<div class="row mb-5">
+					<div class="col-md-6 m-md-auto">
+						<form
+							class="mb-2"
+							id="upload-form"
+							action="/upload"
+							method="post"
+							enctype="multipart/form-data"
+						>
+							<div class="custom-file">
+								<input
+									type="file"
+									name="uploaded_file"
+									class="custom-file-input"
+									id="file-upload"
+									accept="image/heic, image/heif, image/webp, image/png, image/jpeg, image/svg+xml, image/gif, application/pdf, .ai, .sketch, .fig"
+								/>
+								<label
+									class="custom-file-label"
+									for="file-upload"
+								>
+									Choose File
+								</label>
+							</div>
+						</form>
+						<button
+							id="upload-btn"
+							class="btn btn-block btn-primary"
+						>
+							Upload
+						</button>
+					</div>
+				</div>
+				<!-- Files w/ Short URL -->
+				<div class="row m-auto">
+					<div class="card-columns">
 						<% files.forEach((file) => { %>
 						<div class="card">
-							<img
-								src="<%= file.long_url %>"
-								class="card-img-top"
-								alt="..."
-							/>
-							<div class="card-body">
-								<h5 class="card-title">
-									<%= host %>/<%= file.short_url %>
-								</h5>
+							<a
+								class="card-text"
+								href="<%= file.short_url %>"
+								target="_blank"
+							>
+								<img
+									src="<%= file.long_url %>"
+									class="card-img-top"
+									alt="..."
+								/>
+							</a>
+							<div class="card-footer mx-auto">
+								<p class="card-text">
+									Link:
+									<a
+										class="card-text"
+										href="<%= file.short_url %>"
+										target="_blank"
+									>
+										<%= host %>/<%= file.short_url %>
+									</a>
+								</p>
 							</div>
 						</div>
 						<% }); %>
