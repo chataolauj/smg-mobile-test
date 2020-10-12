@@ -35,6 +35,10 @@ app.get("/", async (req, res) => {
 	res.render("index", { msg, error, files, host: req.get("host") });
 });
 
+app.get("*", function (req, res) {
+	res.redirect(301, "/");
+});
+
 const port = process.env.PORT || 5000;
 
 db.connect();

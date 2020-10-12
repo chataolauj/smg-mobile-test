@@ -27,6 +27,11 @@ function upload(file) {
 			let query = await File.findOne({ long_url: file_url });
 			let i = 0;
 
+			/* 
+                if uploaded file is a duplicate, then it renames 
+                the uploaded file by adding '-(some number)' before
+                the file extension
+            */
 			while (query) {
 				i++;
 

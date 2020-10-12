@@ -64,6 +64,7 @@ router.post("/upload", async (req, res) => {
 
 				return res.redirect(301, "/");
 			} else {
+				/* validation to check if upload_file mimtype matches accepted types */
 				if (checkMimeType(file)) {
 					await upload(req.files.uploaded_file) //upload() is imported from aws.js
 						.then((url) => {
@@ -97,6 +98,7 @@ router.post("/upload", async (req, res) => {
 			short_url,
 		});
 
+		/* inserting file into database */
 		await file
 			.save()
 			.then(() => {
